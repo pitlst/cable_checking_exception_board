@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/favicon.ico">
     <title>城轨数据中台 - 校线异常分析</title>
 
     <!-- Fonts -->
@@ -21,6 +22,16 @@
 
     <!-- ECharts -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+    <!-- Tabulator (Tree Table) -->
+    <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+
+    <!-- Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/zh.js"></script>
 
     <script>
         tailwind.config = {
@@ -128,6 +139,157 @@
             color: #FFFFFF;
             border-bottom: 2px solid #C70019;
         }
+
+        /* Flatpickr Customization */
+        .flatpickr-calendar {
+            background: #2A2A2A !important;
+            border: 1px solid #353535 !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
+            font-family: 'Inter', sans-serif !important;
+            border-radius: 0.5rem !important;
+        }
+        .flatpickr-calendar .flatpickr-months,
+        .flatpickr-calendar .flatpickr-months .flatpickr-month {
+            background: #2A2A2A !important;
+            color: #E2E2E2 !important;
+            fill: #E2E2E2 !important;
+        }
+        .flatpickr-calendar .flatpickr-current-month .flatpickr-monthDropdown-months,
+        .flatpickr-calendar .flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+            background: #2A2A2A !important;
+            color: #E2E2E2 !important;
+            appearance: none;
+        }
+        .flatpickr-calendar .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+            background: #393939 !important;
+        }
+        .flatpickr-calendar .flatpickr-weekdays,
+        .flatpickr-calendar .flatpickr-weekdaycontainer {
+            background: #2A2A2A !important;
+        }
+        .flatpickr-calendar span.flatpickr-weekday {
+            background: #2A2A2A !important;
+            color: #E2E2E2 !important;
+            opacity: 0.6 !important;
+        }
+        .flatpickr-calendar .flatpickr-day {
+            color: #E2E2E2 !important;
+            border-radius: 0.25rem !important;
+        }
+        .flatpickr-calendar .flatpickr-day:hover {
+            background: #393939 !important;
+            border-color: #393939 !important;
+        }
+        .flatpickr-calendar .flatpickr-day.today {
+            border-color: #C70019 !important;
+        }
+        .flatpickr-calendar .flatpickr-day.selected, 
+        .flatpickr-calendar .flatpickr-day.selected:focus, 
+        .flatpickr-calendar .flatpickr-day.selected:hover {
+            background: #C70019 !important;
+            border-color: #C70019 !important;
+            color: #FFFFFF !important;
+            box-shadow: inset 0 0 0.2rem rgba(255, 255, 255, 0.3) !important;
+        }
+        .flatpickr-calendar .flatpickr-time {
+            border-top: 1px solid #353535 !important;
+        }
+        .flatpickr-calendar .flatpickr-time input:hover,
+        .flatpickr-calendar .flatpickr-time .flatpickr-am-pm:hover,
+        .flatpickr-calendar .flatpickr-time input:focus,
+        .flatpickr-calendar .flatpickr-time .flatpickr-am-pm:focus {
+            background: #393939 !important;
+        }
+        .flatpickr-calendar .numInputWrapper span.arrowUp:after {
+            border-bottom-color: #E2E2E2 !important;
+        }
+        .flatpickr-calendar .numInputWrapper span.arrowDown:after {
+            border-top-color: #E2E2E2 !important;
+        }
+        .flatpickr-calendar .flatpickr-months .flatpickr-prev-month:hover svg,
+        .flatpickr-calendar .flatpickr-months .flatpickr-next-month:hover svg {
+            fill: #C70019 !important;
+        }
+
+        /* Tabulator Customization for Dark Theme */
+        .tabulator {
+            background-color: #0E0E0E !important;
+            border: none !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        .tabulator .tabulator-header {
+            background-color: #0E0E0E !important;
+            border-bottom: 1px solid #353535 !important;
+            color: rgba(226, 226, 226, 0.6) !important;
+        }
+        .tabulator .tabulator-header .tabulator-col {
+            background-color: #0E0E0E !important;
+            border-right: none !important;
+        }
+        .tabulator .tabulator-header .tabulator-col .tabulator-col-content {
+            padding: 8px 12px !important;
+        }
+        .tabulator .tabulator-tableholder {
+            background-color: #0E0E0E !important;
+        }
+        .tabulator .tabulator-table {
+            background-color: #0E0E0E !important;
+        }
+        .tabulator-row {
+            background-color: #0E0E0E !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+            color: #E2E2E2 !important;
+            transition: background-color 0.2s ease;
+            margin-bottom: 2px;
+        }
+        .tabulator-row:hover {
+            background-color: #393939 !important;
+            border-radius: 0.375rem !important;
+        }
+        .tabulator-row.tabulator-row-even {
+            background-color: #0E0E0E !important;
+        }
+        .tabulator-row.tabulator-selectable:hover {
+            background-color: #393939 !important;
+        }
+        .tabulator-row.tabulator-selected {
+            background-color: #1B1B1B !important;
+            border-left: 2px solid #C70019 !important;
+            color: #FFFFFF !important;
+            font-weight: bold;
+        }
+        .tabulator-row .tabulator-cell {
+            border-right: none !important;
+            padding: 10px 12px !important;
+        }
+        .tabulator-tree-level-0 .tabulator-cell {
+            font-weight: 500;
+        }
+        /* Tree toggle arrow and branch styling */
+        .tabulator .tabulator-row .tabulator-cell .tabulator-tree-branch {
+            border-left: 1px solid #5D3F3C !important;
+            border-bottom: 1px solid #5D3F3C !important;
+            height: 12px !important;
+        }
+        .tabulator-row .tabulator-cell .tabulator-collapse-button {
+            border: none !important;
+            background: transparent !important;
+            color: #FFFFFF !important;
+            display: block !important;
+            float: left !important;
+            padding: 0 !important;
+            margin-right: 6px !important;
+            margin-top: 2px !important;
+            transition: transform 0.2s ease;
+        }
+        .tabulator-row .tabulator-cell .tabulator-collapse-button.tabulator-tree-open svg {
+            transform: rotate(90deg);
+            transition: transform 0.2s ease;
+        }
+        /* Override Tabulator default hover styling that forces white backgrounds */
+        .tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover {
+            background-color: transparent !important;
+        }
     </style>
 </head>
 
@@ -137,26 +299,15 @@
         <!-- Header -->
         <header class="flex justify-between items-center bg-surface-low rounded-xl border border-surface-variant px-6 py-4 glass-panel">
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-surface-high rounded-lg flex items-center justify-center">
-                    <svg class="w-5 h-5 text-on-surface" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
-                            d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
+                <div class="w-8 h-8 bg-surface-high rounded-lg flex items-center justify-center overflow-hidden">
+                    <img src="/static/中车.png" alt="Logo" class="w-full h-full object-contain">
                 </div>
                 <h1 class="font-display font-bold text-xl tracking-wide text-white">城轨数据中台</h1>
             </div>
             <nav class="flex space-x-6 text-sm font-medium">
-                <a href="#" class="text-on-surface hover:text-white transition-colors">主页</a>
-                <a href="#" class="text-white font-bold">报表/看板</a>
-                <a href="#" class="text-on-surface hover:text-white transition-colors">服务</a>
-                <a href="#" class="text-on-surface hover:text-white transition-colors">文档</a>
-                <button class="text-on-surface hover:text-white ml-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
-                        </path>
-                    </svg>
-                </button>
+                <a href="#" class="text-white font-bold">看板</a>
+                <a href="#" class="text-on-surface hover:text-white transition-colors">报表</a>
+                <a href="#" class="text-on-surface hover:text-white transition-colors">明细</a>
             </nav>
         </header>
 
@@ -287,23 +438,23 @@
                     <span class="w-1 h-4 bg-primary mr-3 rounded-sm"></span>已经完成的流程
                 </h3>
                 <div class="flex space-x-4 items-center">
-                    <div class="flex flex-col">
+                    <div class="flex flex-col relative z-0 flatpickr" id="start-date-picker">
                         <label class="text-[0.6875rem] text-on-surface/60 mb-1">选择数据查询起始时间</label>
-                        <div
-                            class="bg-surface-lowest border border-surface-variant input-glow rounded-lg px-3 py-2 flex items-center w-48">
-                            <input type="text" value="2025-09-01 00:00:00"
-                                class="bg-transparent text-sm text-white w-full outline-none">
-                            <span class="text-on-surface/40 text-xs ml-2 cursor-pointer hover:text-white">✕</span>
+                        <input type="text" data-input class="absolute inset-0 w-full h-full opacity-0 pointer-events-none z-[-1]">
+                        <div id="start-date-container" data-toggle
+                            class="bg-surface-lowest border border-surface-variant input-glow rounded-lg px-3 py-2 flex items-center w-48 cursor-pointer relative z-0">
+                            <div id="start-date" class="bg-transparent text-sm text-white w-full outline-none">2025-09-01 00:00:00</div>
+                            <span class="text-on-surface/40 text-xs ml-2 cursor-pointer hover:text-white relative z-20" data-clear>✕</span>
                         </div>
                     </div>
-                    <span class="text-on-surface/40 mt-4">~</span>
-                    <div class="flex flex-col">
+                    <span class="text-on-surface/40 mt-4 relative z-0">~</span>
+                    <div class="flex flex-col relative z-0 flatpickr" id="end-date-picker">
                         <label class="text-[0.6875rem] text-on-surface/60 mb-1">选择数据查询结束时间</label>
-                        <div
-                            class="bg-surface-lowest border border-surface-variant input-glow rounded-lg px-3 py-2 flex items-center w-48">
-                            <input type="text" value="2025-09-13 00:00:00"
-                                class="bg-transparent text-sm text-white w-full outline-none">
-                            <span class="text-on-surface/40 text-xs ml-2 cursor-pointer hover:text-white">✕</span>
+                        <input type="text" data-input class="absolute inset-0 w-full h-full opacity-0 pointer-events-none z-[-1]">
+                        <div id="end-date-container" data-toggle
+                            class="bg-surface-lowest border border-surface-variant input-glow rounded-lg px-3 py-2 flex items-center w-48 cursor-pointer relative z-0">
+                            <div id="end-date" class="bg-transparent text-sm text-white w-full outline-none">2025-09-13 00:00:00</div>
+                            <span class="text-on-surface/40 text-xs ml-2 cursor-pointer hover:text-white relative z-20" data-clear>✕</span>
                         </div>
                     </div>
                 </div>
@@ -581,16 +732,14 @@
         <section class="bg-surface-low rounded-xl border border-surface-variant p-6 mb-8">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="font-display text-lg font-bold text-white">异常原因占比</h3>
-                <button
-                    class="bg-surface-variant hover:bg-surface-bright px-4 py-2 text-sm transition-colors text-white font-medium border border-outline-variant/30 rounded-lg">切换样式</button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Sunburst Chart -->
-                <div id="chart-reasons" class="h-96 w-full bg-surface-lowest rounded-xl border border-surface-variant p-4"></div>
+                <div id="chart-reasons" class="h-[400px] w-full bg-surface-lowest rounded-xl border border-surface-variant p-4"></div>
 
                 <!-- Table Data -->
-                <div class="w-full text-sm bg-surface-lowest rounded-xl border border-surface-variant p-4">
+                <div class="h-[400px] w-full text-sm bg-surface-lowest rounded-xl border border-surface-variant p-4 overflow-y-auto">
                     <div class="flex justify-end space-x-2 text-on-surface/60 mb-2">
                         <svg class="w-4 h-4 cursor-pointer hover:text-white" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -604,61 +753,8 @@
                                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                         </svg>
                     </div>
-                    <div class="flex text-on-surface/60 py-2 border-b border-surface-variant font-medium">
-                        <div class="w-1/2">异常原因</div>
-                        <div class="w-1/4 text-right">数量</div>
-                        <div class="w-1/4 text-right">占比</div>
-                    </div>
-                    <div class="space-y-1 mt-2">
-                        <div class="flex py-2 hover:bg-surface-bright transition-colors px-2 -mx-2 rounded-md">
-                            <div class="w-1/2 flex items-center"><span
-                                    class="w-4 text-center mr-2 opacity-50">›</span>来料</div>
-                            <div class="w-1/4 text-right">10</div>
-                            <div class="w-1/4 text-right">17.24%</div>
-                        </div>
-                        <div class="flex py-2 hover:bg-surface-bright transition-colors px-2 -mx-2 rounded-md">
-                            <div class="w-1/2 flex items-center"><span
-                                    class="w-4 text-center mr-2 opacity-50">›</span>工艺</div>
-                            <div class="w-1/4 text-right">1</div>
-                            <div class="w-1/4 text-right">1.72%</div>
-                        </div>
-                        <div class="flex py-2 hover:bg-surface-bright transition-colors px-2 -mx-2 rounded-md">
-                            <div class="w-1/2 flex items-center"><span
-                                    class="w-4 text-center mr-2 opacity-50">›</span>下线</div>
-                            <div class="w-1/4 text-right">12</div>
-                            <div class="w-1/4 text-right">20.69%</div>
-                        </div>
-                        <div class="flex py-2 hover:bg-surface-bright transition-colors px-2 -mx-2 rounded-md">
-                            <div class="w-1/2 flex items-center"><span
-                                    class="w-4 text-center mr-2 opacity-50">›</span>布线</div>
-                            <div class="w-1/4 text-right">8</div>
-                            <div class="w-1/4 text-right">13.79%</div>
-                        </div>
-                        <div
-                            class="flex py-2 hover:bg-surface-bright transition-colors px-2 -mx-2 bg-surface-low border-l-2 border-primary rounded-md">
-                            <div class="w-1/2 flex items-center"><span
-                                    class="w-4 text-center mr-2 opacity-50">›</span>接线</div>
-                            <div class="w-1/4 text-right text-white font-bold">22</div>
-                            <div class="w-1/4 text-right text-white font-bold">37.93%</div>
-                        </div>
-                        <div class="flex py-2 hover:bg-surface-bright transition-colors px-2 -mx-2 rounded-md">
-                            <div class="w-1/2 flex items-center pl-6">计划下达</div>
-                            <div class="w-1/4 text-right">1</div>
-                            <div class="w-1/4 text-right">1.72%</div>
-                        </div>
-                        <div class="flex py-2 hover:bg-surface-bright transition-colors px-2 -mx-2 rounded-md">
-                            <div class="w-1/2 flex items-center"><span
-                                    class="w-4 text-center mr-2 opacity-50">›</span>后续工序</div>
-                            <div class="w-1/4 text-right">3</div>
-                            <div class="w-1/4 text-right">5.17%</div>
-                        </div>
-                        <div class="flex py-2 hover:bg-surface-bright transition-colors px-2 -mx-2 rounded-md">
-                            <div class="w-1/2 flex items-center"><span
-                                    class="w-4 text-center mr-2 opacity-50">›</span>变更执行</div>
-                            <div class="w-1/4 text-right">1</div>
-                            <div class="w-1/4 text-right">1.72%</div>
-                        </div>
-                    </div>
+                    <!-- Tabulator Container -->
+                    <div id="reasons-tree-table" class="mt-2"></div>
                 </div>
             </div>
         </section>
@@ -687,6 +783,40 @@
     <script>
         // Initialize ECharts instances
         document.addEventListener('DOMContentLoaded', () => {
+
+            // Initialize Date Pickers (Single points)
+            const commonConfig = {
+                wrap: true,
+                disableMobile: true,
+                locale: "zh",
+                dateFormat: "Y-m-d H:i:s",
+                enableTime: true,
+                time_24hr: true
+            };
+
+            flatpickr("#start-date-picker", {
+                ...commonConfig,
+                defaultDate: "2025-09-01 00:00:00",
+                onChange: function(selectedDates, dateStr, instance) {
+                    if (selectedDates.length === 0) {
+                        document.getElementById('start-date').innerText = '请选择时间';
+                    } else {
+                        document.getElementById('start-date').innerText = instance.formatDate(selectedDates[0], "Y-m-d H:i:s");
+                    }
+                }
+            });
+
+            flatpickr("#end-date-picker", {
+                ...commonConfig,
+                defaultDate: "2025-09-13 00:00:00",
+                onChange: function(selectedDates, dateStr, instance) {
+                    if (selectedDates.length === 0) {
+                        document.getElementById('end-date').innerText = '请选择时间';
+                    } else {
+                        document.getElementById('end-date').innerText = instance.formatDate(selectedDates[0], "Y-m-d H:i:s");
+                    }
+                }
+            });
 
             // Theme colors for charts
             const chartTextColor = '#E2E2E2';
@@ -840,6 +970,48 @@
                 }
             };
             chartReasons.setOption(sunburstOption);
+
+            // 5. Reasons Tree Table (Tabulator)
+            const tableData = [
+                { id: 1, reason: "来料", count: 10, percentage: "17.24%", _children: [
+                    { id: 11, reason: "物料缺失", count: 10, percentage: "17.24%" }
+                ]},
+                { id: 2, reason: "工艺", count: 1, percentage: "1.72%" },
+                { id: 3, reason: "下线", count: 12, percentage: "20.69%", _children: [
+                    { id: 31, reason: "尺寸不符", count: 12, percentage: "20.69%" }
+                ]},
+                { id: 4, reason: "布线", count: 8, percentage: "13.79%", _children: [
+                    { id: 41, reason: "走线错误", count: 8, percentage: "13.79%" }
+                ]},
+                { id: 5, reason: "接线", count: 22, percentage: "37.93%", _children: [
+                    { id: 51, reason: "接线错误", count: 15, percentage: "25.86%" },
+                    { id: 52, reason: "接线松动", count: 7, percentage: "12.07%" }
+                ]},
+                { id: 6, reason: "计划下达", count: 1, percentage: "1.72%" },
+                { id: 7, reason: "后续工序", count: 3, percentage: "5.17%" },
+                { id: 8, reason: "变更执行", count: 1, percentage: "1.72%" }
+            ];
+
+            const table = new Tabulator("#reasons-tree-table", {
+                data: tableData,
+                dataTree: true,
+                dataTreeStartExpanded: false,
+                dataTreeChildIndent: 15,
+                dataTreeBranchElement: false, // hide the default L-shaped branch
+                dataTreeExpandElement: "<svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='#FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 18 15 12 9 6'></polyline></svg>", // Chevron Right
+                dataTreeCollapseElement: "<svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='#FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>", // Chevron Down
+                layout: "fitColumns",
+                selectable: 1, // allow row selection
+                columns: [
+                    { title: "异常原因", field: "reason", widthGrow: 2 },
+                    { title: "数量", field: "count", widthGrow: 1, hozAlign: "right" },
+                    { title: "占比", field: "percentage", widthGrow: 1, hozAlign: "right" }
+                ],
+                rowSelectionChanged: function(data, rows) {
+                    // Example interaction: Select row in table could highlight sunburst section
+                    // console.log("Selected:", data);
+                }
+            });
 
             // Handle window resize
             window.addEventListener('resize', () => {
